@@ -12,42 +12,71 @@
       rel="stylesheet"
     />
     <title>Five Day Forecast </title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    
   </head>
   <body class="p-3 m-0 border-0 bd-example">
 
-<div class="grid">
-
-    <!-- search and list container -->
-    <div class="container"></div>
-    <div class="col-span-4">
-      <h1>Search Here For the Weather</h1>
-
-      <div class="input-group mb-3">
-        
-        <input id="userInput" type="search" class="form-control" placeholder="Search" />
-        <button id="searchButton" class="btn btn-success" type="submit">Go</button>
-      </div>
-      <div class="col-auto">
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">First item</a>
-            <a href="#" class="list-group-item list-group-item-action">Second item</a>
-            <a href="#" class="list-group-item list-group-item-action">Third item</a>
+    <main>
+      <!-- Weather Dashboard Header -->
+      <header class="p-3 text-bg-dark">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <span class="fs-4">Weather Dashboard</span>                  
           </div>
-      </div>
-    </div>
-    <div  id="weatherResult" class="container"></div>
-    <!-- <h2 class="col">The Current Weather In: 
-        <ul class="list-group">
+        </div>
+      </header>
+  <div class="container-fluid d-flex">    
+      <!-- Weather Result for Current Day -->
+    <div id="weatherResult" class="container-xxl "></div>
+    <h2 id="weatherResult2" class="mx-auto mt-5" style="width: 100%;"> 
+        <!-- <ul class="list-group">
             <li class="list-group-item">First item</li>
             <li class="list-group-item">Second item</li>
             <li class="list-group-item">Third item</li>
-          </ul>
-        </h2> -->
+          </ul> -->
+        </h2>
    <div class="container">
     
     
-   </div>     
+   </div> 
+    
+      <!-- Sidebar -->
+      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary position-sticky" style="width: 380px; height: auto">
+        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-5 fw-semibold">Search For a City</span>
+        </a>
+        <!-- place search bar -->
+        <div class="input-group mb-3">
+        
+          <input id="userInput" type="search" class="form-control" placeholder="Search" />
+          <button id="searchButton" class="btn btn-success" type="submit">Go</button>
+        </div>
+        <div class="col-auto">
+          <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-action">First item</a>
+              <a href="#" class="list-group-item list-group-item-action">Second item</a>
+              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+            </div>
+        </div>
+      </div> 
+        
+        </div>
+      </div>
+    
+
+    </div>
+
+      
+        
     
 </div id='row'>
 <div class="container row-auto">
@@ -92,8 +121,22 @@
       <div id="openweathermap-widget-1"></div>
     
 </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+  integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+  crossorigin="anonymous"
+></script>
 <script src="assets/js/index.js"></script>
 <script src="assets/js/apirequest.js"></script>
 <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
+<script>
+  dayjs().format()
+</script>
   </body>
 </html>

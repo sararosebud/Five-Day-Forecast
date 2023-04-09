@@ -1,3 +1,4 @@
+
 const apiKey = "976a68c72902bf9ad934e239ce2e5e99"
 var searchBtn = document.getElementById('searchButton');
 var city;
@@ -6,6 +7,9 @@ var input = document.getElementById('userInput')
 const weatherResult = document.getElementById('weatherResult')
 
 
+
+var today = dayjs();
+$('').text(today.format('MMM D, YYYY'));
 
 
 
@@ -32,20 +36,24 @@ searchBtn.addEventListener('click', e => {
 
     function addElement() {
 
+        
+
         var cityName = (data.name)
+        // var currentDate = (data.
         var cityWeather = (data.main.temp)
       // create a new div element
-      const newDiv = document.createElement("ul");
+      const currentDay = dayjs().format('MM/DD/YYYY');
+      
     
       // and give it some content
-      const newContent = document.createTextNode("The Current Weather in " + cityName + " is " + cityWeather + "! ");
+      const currentDayContent = document.createTextNode( cityName + " (" + currentDay + ")" + "   " + cityWeather + " ");
     
       // add the text node to the newly created div
-      weatherResult.appendChild(newContent);
+      weatherResult2.appendChild(currentDayContent);
     
       // add the newly created element and its content into the DOM
-      const currentDiv = document.getElementById("div1");
-      document.body.insertBefore(newDiv, currentDiv);
+    //   const currentDiv = document.getElementById("div1");
+    //   document.body.insertBefore(newDiv, currentDiv);
     }
 
     })       
@@ -57,20 +65,3 @@ searchBtn.addEventListener('click', e => {
 
 
 
-function addElement() {
-
-    var cityName = (data.name)
-    var cityWeather = (data.main.temp)
-  // create a new div element
-  const newDiv = document.createElement("ul");
-
-  // and give it some content
-  const newContent = document.createTextNode("The Current Weather in" + cityName + "is" + cityWeather + "!");
-
-  // add the text node to the newly created div
-  weatherResult.appendChild(newContent);
-
-  // add the newly created element and its content into the DOM
-  const currentDiv = document.getElementById("div1");
-  document.body.insertBefore(newDiv, currentDiv);
-}
