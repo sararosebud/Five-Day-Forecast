@@ -95,11 +95,9 @@ function renderForecast() {
     
   } 
  
-renderForecast();
-
-
-  
 }
+
+
 
 // // Wait for document to load
 // $(document).ready(() => {
