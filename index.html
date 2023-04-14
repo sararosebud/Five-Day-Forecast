@@ -28,7 +28,7 @@
           </div>
         </div>
       </header>
-  <div class="container-fluid d-flex">    
+  <div id="currentDay" class="container-fluid d-flex">    
       <!-- Weather Result for Current Day -->
     <div id="weatherResult" class="container-xxl "></div>
     <h2 id="weatherResult2" class="mx-auto mt-5" style="width: 100%;"> 
@@ -38,10 +38,7 @@
             <li class="list-group-item">Third item</li>
           </ul> -->
         </h2>
-   <div class="container">
-    
-    
-   </div> 
+   
     
       <!-- Sidebar -->
       <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary position-sticky" style="width: 380px; height: auto">
@@ -69,34 +66,16 @@
         </div>
       </div> 
         
-        </div>
-      </div>
-    
-
     </div>
 
-</div id='row'>
+    <div id="forecastContainer">
+      <div id="forecast">Testing</div>
 
 
-<div class="container row-auto">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div id="forecast" class="col">
-          <div class="card h-100">
-            <img src="assets/images/2017 Journey To Yellowstone Amarillo Web (13 of 76).jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              
-            </div>
-            
-          </div>
-        </div>
-        <div class="col">
-        
-        
-      </div>
-    
+    </div>
+      
+      
 
-    
-</div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
@@ -107,7 +86,7 @@
   crossorigin="anonymous"
 ></script>
 <script src="assets/js/index.js"></script>
-<script src="assets/js/apirequest.js"></script>
+
 <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>

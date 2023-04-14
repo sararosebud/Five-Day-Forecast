@@ -17,7 +17,7 @@ function addElement(data) {
   // var currentDate = (data.
   var cityWeather = (data.main.temp)
 // create a new div element
-const currentDay = dayjs().format('MM/DD/YYYY');
+const currentDay = today.format('MM/DD/YYYY');
 
 
 // and give it some content
@@ -53,7 +53,7 @@ searchBtn.addEventListener('click', e => {
       
         
     addElement(data);
-    getForecast(lat, lon)
+    getForecast(lat, lon);
   
 
  
@@ -65,11 +65,12 @@ searchBtn.addEventListener('click', e => {
 
 function getForecast(lat, lon) {
 
-  var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+  var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
 
   fetch(forecastUrl)
     .then(response => response.json())
     .then(data => {
+      renderForecast(data);
       console.log(data)
 
     
@@ -78,18 +79,34 @@ function getForecast(lat, lon) {
 
 }
 
-function renderForecast() {
+function renderForecast(data) {
 
   let forecastContainer = document.getElementById('forecast');
+  forecastContainer.textContent = 'test'
+  console.log("forecast console")
+
+  console.log(data);
+  
   for (i=0; data.list.length; i+8) {
     let forecastCard = document.createElement('div');
-    forecastCard.classList.add('card h-100')
+    forecastCard.classList.add('card')
     let cardBody = document.createElement('div')
     cardBody.classList.add("card-body")
     let cardTitle = document.createElement('h5')
     cardTitle.classList.add('card-title')
-    
+
+    cardTitle.textContent = 'date'
+
+    let humidityEl = document.createElement('p');
+    humidityEl.textContent = data.list[i].main.humidity
+
     cardBody.append(cardTitle)
+
+    cardBody.append(humidityEl)
+
+  
+    
+    
     forecastCard.append(cardBody)
     forecastContainer.append(forecastCard)
     
