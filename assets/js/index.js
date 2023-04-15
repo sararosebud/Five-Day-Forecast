@@ -82,29 +82,52 @@ function getForecast(lat, lon) {
 function renderForecast(data) {
 
   let forecastContainer = document.getElementById('forecast');
-  forecastContainer.textContent = 'test'
+  // forecastContainer.textContent = 'test'
   console.log("forecast console")
 
   console.log(data);
   
-  for (i=0; data.list.length; i+8) {
+  for (i=0; data.list.length; i+=8) {
     let forecastCard = document.createElement('div');
     forecastCard.classList.add('card')
     let cardBody = document.createElement('div')
     cardBody.classList.add("card-body")
     let cardTitle = document.createElement('h5')
+
+    let fiveDayDate = data.list[i].dt_txt
+    let formattedDate = dayjs(fiveDayDate).format('ddd MMM D, YYYY');
+cardTitle.textContent = formattedDate;
+   
+    
+  
+
+
     cardTitle.classList.add('card-title')
 
-    cardTitle.textContent = 'date'
+    // cardTitle.textContent = fiveDayDate
+
 
     let humidityEl = document.createElement('p');
-    humidityEl.textContent = data.list[i].main.humidity
+    humidityEl.textContent = 'Humidity'+ " " +  data.list[i].main.humidity
+
+    let temperatureEl = document.createElement('p');
+    temperatureEl.textContent = 'Temperature:' + " " + data.list[i].main.temp
+
+    let pressureEl = document.createElement('p');
+    pressureEl.textContent = "Pressure:" + " " + data.list[i].main.pressure
+
+    let iconEl = document.createElement('img');
+    iconEl.innerHTML = data.list[i].weather.icon
+
+   
+
 
     cardBody.append(cardTitle)
 
-    cardBody.append(humidityEl)
-
-  
+    cardBody.append(temperatureEl);
+    cardBody.append(humidityEl);
+    cardBody.append(pressureEl);
+    cardBody.append(iconEl)
     
     
     forecastCard.append(cardBody)
