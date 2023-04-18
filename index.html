@@ -28,47 +28,50 @@
           </div>
         </div>
       </header>
-  <div id="currentDay" class="container-fluid d-flex">    
-      <!-- Weather Result for Current Day -->
-    <div id="weatherResult" class="container-xxl "></div>
-    <h2 id="weatherResult2" class="mx-auto mt-5" style="width: 100%;"> 
-        <!-- <ul class="list-group">
-            <li class="list-group-item">First item</li>
-            <li class="list-group-item">Second item</li>
-            <li class="list-group-item">Third item</li>
-          </ul> -->
-        </h2>
+  
    
-    
-      <!-- Sidebar -->
-      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary position-sticky" style="width: 380px; height: auto">
-        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          <span class="fs-5 fw-semibold">Search For a City</span>
-        </a>
-        <!-- search bar -->
-        <div class="input-group mb-3">
+      <div class="container d-flex flex-wrap">
         
-          <input id="userInput" type="search" class="form-control" placeholder="Search" />
-          <button id="searchButton" class="btn btn-success" type="submit">Go</button>
-        </div>
-        <div class="col-auto">
-          <div id="savedCities" class="list-group">
-              <a href="#" class="list-group-item list-group-item-action">First item</a>
-              <a href="#" class="list-group-item list-group-item-action">Second item</a>
-              <a href="#" class="list-group-item list-group-item-action">Third item</a>
-              <a href="#" class="list-group-item list-group-item-action">Third item</a>
-              <a href="#" class="list-group-item list-group-item-action">Third item</a>
-              <a href="#" class="list-group-item list-group-item-action">Third item</a>
-              <a href="#" class="list-group-item list-group-item-action">Third item</a>
-              <a href="#" class="list-group-item list-group-item-action">Third item</a>
+          <div class="col-md-4">
+            <!-- Sidebar -->
+            <div class="position-sticky" style="width: 1. rem;">
+              <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+                <!-- <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg> -->
+                <span class="fs-5 fw-semibold">Search For a City</span>
+              </a>
+      
+              <!-- search bar -->
+              <div class="input-group mb-3">
+                <input id="userInput" type="search" class="form-control" placeholder="Search" />
+                <button id="searchButton" class="btn btn-success" type="submit">Go</button>
+              </div>
+      
+              <div class="col-auto">
+                <div id="savedCities" class="list-group"></div>
+              </div>
             </div>
-        </div>
-      </div> 
+          </div>
+          <div class="col-md-8">
+            <!-- Current Day -->
+            <div class="container">
+              
+                <div class="col">
+                  <div id="currentDay" class="mt-5"></div>
+                </div>
+              
+              
+                <div class="col">
+                  <!-- Weather Result for Current Day -->
+                  <div id="weatherResult" class="container-xxl mx-5 mt-5"></div>
+                </div>
+              
+            </div>
+          </div>
         
-    </div>
+      </div>
+      
 
-    <div id="forecastContainer"  class="container row-auto">
+    <div id="forecastContainer"  class="container row-auto mt-5">
       <div id="forecast" class="card-group"></div>
 
 
@@ -86,6 +89,8 @@
   crossorigin="anonymous"
 ></script>
 <script src="assets/js/index.js"></script>
+
+
 
 <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
 
