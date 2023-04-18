@@ -49,6 +49,8 @@ const currentPressure = document.createElement('p');
 currentPressure.classList.add('card-body');
 currentPressure.textContent = "Pressure: " + " " + dayOnePressure
 
+
+
 // appending all of the created elements to the card body and weather container
 weatherResult.appendChild(cdCardBody);
 cdCardBody.appendChild(currentDayTitle);
