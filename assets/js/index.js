@@ -6,12 +6,13 @@ var temp;
 var input = document.getElementById('userInput')
 const weatherResult = document.getElementById('weatherResult')
 var cityList = document.getElementById("savedCities")
-
-
-
-
 var today = dayjs();
 $('').text(today.format('MMM D, YYYY'));
+let savedCities;
+
+
+
+
 
 function addElement(data) {        
 
@@ -39,7 +40,7 @@ currentDate.textContent = currentDay;
 // today's temperature
 const currentTemp = document.createElement('p');
 currentTemp.classList.add("card-body")
-currentTemp.textContent = "Temperature:" + dayOneTemp + "°" + "F"
+currentTemp.textContent = "Temperature:" + " " + dayOneTemp + "°" + "F"
 // today's humidity
 const currentHumidity = document.createElement('p');
 currentHumidity.classList.add('card-body');
@@ -63,39 +64,97 @@ cdCardBody.appendChild(currentPressure);
 }
 
 
-// function that saves the searched cities into local storage, populates them to a button, and repopulates the forecast for that city
 
-function saveLastCity(cityName) {
-  var storedCity = {
-    city: cityName
-  };
-  localStorage.setItem("savedCity", JSON.stringify(storedCity));
+
+function clearWeatherResult() {
+
+  weatherResult.innerHTML = "";
+  document.getElementById('forecast').innerHTML = "";
+  cityList.innerHTML = "";
+
 }
 
-function renderLastCity() {
-  var lastCity = JSON.parse(localStorage.getItem("savedCity"));
-  if (lastCity !== null) {
-    var cityName = lastCity.city;
-    var cityButton = document.createElement("button");
-    cityButton.textContent = cityName;
-    cityButton.addEventListener("click", function() {
-      var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          weatherResult.innerHTML = "";
-          addElement(data);
-          let lat = data.coord.lat;
-          let lon = data.coord.lon;
-          getForecast(lat, lon);
-        });
-        weatherResult.innerHTML = "";
- document.getElementById('forecast').innerHTML = "";
 
-    });
+function fetchURL() {
+
+  let inputVal = input.value
+ 
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial`
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+  
+ 
+     let lat = data.coord.lat;
+     let lon = data.coord.lon;
+ 
+      
+     addElement(data);
+     getForecast(lat, lon);
+
+     saveCities(inputVal);
+     renderSavedCities();
+ 
+});     
+}
+
+function saveCities(inputVal) {
+
+   // Save the city to local storage
+  savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+
+ console.log(savedCities)
+ if (!savedCities.includes(inputVal)) 
+  {
+   savedCities.push(inputVal);
+ }
+ localStorage.setItem("savedCities", JSON.stringify(savedCities));
+}
+
+function renderSavedCities() {
+ 
+
+  for (i=0; i < savedCities.length; i++) {
+    let cityButton = document.createElement('button');
+    cityButton.textContent = savedCities[i];
+    
     cityList.appendChild(cityButton);
-  }
+
+
+  }}
+
+cityList.addEventListener('click', function(e) {
+
+clearWeatherResult();
+ let buttonInfo = e.target.textContent
+ 
+ recentSearches(buttonInfo);
+ 
 }
+)
+
+function recentSearches(city) {
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+  
+ 
+     let lat = data.coord.lat;
+     let lon = data.coord.lon;
+ 
+      
+     addElement(data);
+     getForecast(lat, lon);
+
+     saveCities(city);
+     renderSavedCities();
+    }); 
+
+}
+
+
+  
 
 
 // search button to find city and populate weather forecast
@@ -103,39 +162,12 @@ function renderLastCity() {
 searchBtn.addEventListener('click', e => {
     e.preventDefault()
     
-    
-
-    let inputVal = input.value
-   
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial`
-
-    
- // Clear the contents of weatherResult and forecast containers
- weatherResult.innerHTML = "";
- document.getElementById('forecast').innerHTML = "";
-
-
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-    
-
-       let lat = data.coord.lat;
-       let lon = data.coord.lon;
-
+      fetchURL();   
+      
+      // Clear the contents of weatherResult and forecast containers      
+      clearWeatherResult();     
+      input.value = "";
         
-    addElement(data);
-    getForecast(lat, lon);
-
-    saveLastCity(inputVal);
-    
-    renderLastCity();
-
-    
-    
-    })       
-            
-
 })
 
 // call/fetch a five day forecast from openweathermap api
@@ -150,19 +182,21 @@ function getForecast(lat, lon) {
       renderForecast(data);
       console.log(data)
 
-    
-   
     })       
 
 }
 
 function renderForecast(data) {
 
+   
+
   let forecastContainer = document.getElementById('forecast');
-  // forecastContainer.textContent = 'test'
+  
   console.log("forecast console")
 
   console.log(data);
+
+
   
   for (i=0; data.list.length; i+=8) {
     let forecastCard = document.createElement('div');
@@ -171,7 +205,10 @@ function renderForecast(data) {
     cardBody.classList.add("card-body")
     let cardTitle = document.createElement('h5')
     let cardImage = document.createElement('img')
-    cardImage.classList.add('card-img-top')
+
+    let iconURL = `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}.png`
+    cardImage.classList.add('custom-img')
+    cardImage.setAttribute('src', iconURL)
 
     let fiveDayDate = data.list[i].dt_txt
     let formattedDate = dayjs(fiveDayDate).format('ddd MMM D, YYYY');
@@ -183,23 +220,19 @@ function renderForecast(data) {
 
 
     let humidityEl = document.createElement('p');
-    humidityEl.textContent = 'Humidity'+ " " +  data.list[i].main.humidity
+    humidityEl.textContent = 'Humidity'+ " " +  data.list[i].main.humidity + "%"
 
     let temperatureEl = document.createElement('p');
-    temperatureEl.textContent = 'Temperature:' + " " + data.list[i].main.temp
+    temperatureEl.textContent = 'Temperature:' + " " + data.list[i].main.temp + "°" + "F"
 
     let pressureEl = document.createElement('p');
     pressureEl.textContent = "Pressure:" + " " + data.list[i].main.pressure
 
-    let iconEl = document.createElement('img');
-    iconEl.textContent = data.list[i].weather.icon
-    console.log(iconEl)
+  
 
+    cardBody.append(cardTitle);
+    cardBody.append(cardImage);
    
-
-
-    cardBody.append(cardTitle)
-    cardImage.append(iconEl);
 
     cardBody.append(temperatureEl);
     cardBody.append(humidityEl);
@@ -213,5 +246,6 @@ function renderForecast(data) {
   } 
  
 }
+
 
 
